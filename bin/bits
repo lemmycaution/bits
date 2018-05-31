@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const path = require('path')
+const poi = require('poi')
+const config = require(path.resolve(__dirname, '../poi.config.js'))
+
+const command = process.argv[2]
+
+const _config = {
+  entry: path.resolve(__dirname, '../index.js'),
+  mode: process.env.NODE_ENV || 'development'
+}
+
+const INDEX_MD_TMPL = '# Bits\n\nHello World!'
+
+const writeFileIfNotExists = (filepath, content) => {
+
+  if (!fs.existsSync(filepath)) {
+      const dir = path.dirname(filepath)
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+
+      fs.writeFileSync(
+        filepath,
+        content,
+        'UTF-8'
+      )
+    }
+}
+
+switch (command) {
+  case 'init':
+    const root = process.cwd()
+    const resolve = dir => path.resolve(root, dir)
+    writeFileIfNotExists(resolve('./docs/README.md'), INDEX_MD_TMPL)
+
+    console.log('bits initialized!')
+
+    break;
+
+  case 'build':
+    _config.mode = 'production'
+    break;
+
+  case 'dev':
+  default:
+    _config.devServer = {
+      hot: true,
+      quiet: true,
+      historyApiFallback: true,
+      overlay: true,
+      noInfo: false,
+      disableHostCheck: true,
+      publicPath: '/',
+      host: 'localhost',
+      port: 4000
+    }
+    break
+}
+
+const app = poi(Object.assign({}, config(), _config))
+
+app.prepare()
+
+if (command === 'build') {
+  app.build()
+} else {
+  app.dev()
+    .then(({server, host, port}) => {
+      server.listen(port, function (err) {
+        if (err) {
+          console.log(err)
+          return
+        }
+        console.log(`server started at ${host}:${port}`)
+      })
+    })
+}

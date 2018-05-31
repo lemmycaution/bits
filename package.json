@@ -1,0 +1,42 @@
+{
+  "name": "bits",
+  "version": "0.0.1",
+  "description": "Documentation site generator for digital products",
+  "author": "Onur Uyar <me@onuruyar.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lemmycaution/bits.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lemmycaution/bits/issues"
+  },
+  "homepage": "https://github.com/lemmycaution/bits",
+  "bin": {
+    "bits": "bin/bits"
+  },
+  "scripts": {
+    "dev": "./bin/bits"
+  },
+  "module": "index.js",
+  "main": "index.js",
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "dependencies": {
+    "codemirror": "^5.33.0",
+    "highlight.js": "^9.12.0",
+    "marked": "^0.3.12",
+    "poi": "^9.6.0",
+    "vue-markdown-loader": "^2.3.0",
+    "vue-router": "^3.0.1"
+  },
+  "peerDependencies": {
+    "raw-loader": "^0.5.1"
+  },
+  "devDependencies": {
+    "postcss-cssnext": "^3.1.0",
+    "raw-loader": "^0.5.1"
+  }
+}
