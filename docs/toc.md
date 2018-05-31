@@ -1,4 +1,0 @@
-- [Home](/README.md)
-- [Writing](/markdown.md)
-- [Examples](/examples.md)
-- [Demo](/content/README.md)
